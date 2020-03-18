@@ -1,6 +1,6 @@
 package entity;
 
-import java.util.Map;
+import java.util.List;
 
 import lombok.Data;
 
@@ -9,6 +9,6 @@ public class Itinerary {
 
 	int idlinha;
 	String nome;
-	int codigo;
-	Map<Integer, Position> myPositions;
+	String codigo;
+	List<Location> locations;
 }

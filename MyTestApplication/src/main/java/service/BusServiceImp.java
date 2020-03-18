@@ -10,62 +10,129 @@ public class BusServiceImp implements BusService {
 	@Override
 	public List<Bus> filterByName(String name, List<Bus> busses) {
 
-		return busses.stream().filter(bus -> bus.getNome().contains(name)).collect(Collectors.toList());
+		return busses.stream().filter(streamBus -> streamBus.getNome().contains(name)).collect(Collectors.toList());
 	}
 
 	@Override
-	public List<Bus> createNewBus(int id, int code, String name, List<Bus> busses) {
+	public boolean createNewBus(int id, String code, String name, List<Bus> busses) {
 
-		busses.add(new Bus(id, code, name));
-
-		return busses;
-
+		return busses.add(new Bus(id, code, name));
 	}
 
 	@Override
 	public Bus getBusById(int id, List<Bus> busses) {
 
-		return busses.stream().filter(bus -> bus.getId() == id).findFirst().orElse(null);
+		if (busses.isEmpty())
+			return null;
+
+		Bus newBus = busses.stream().filter(streamBus -> streamBus.getId() == id).findFirst().orElse(null);
+
+		return newBus != null ? new Bus(newBus.getId(), newBus.getCodigo(), newBus.getNome()) : null;
 	}
 
 	@Override
-	public Bus getBusByCode(int code, List<Bus> busses) {
+	public Bus getBusByCode(String code, List<Bus> busses) {
 
-		return busses.stream().filter(bus -> bus.getCodigo() == code).findFirst().orElse(null);
+		if (busses.isEmpty())
+			return null;
+
+		Bus newBus = busses.stream().filter(streamBus -> streamBus.getCodigo().equals(code)).findFirst().orElse(null);
+
+		return newBus != null ? new Bus(newBus.getId(), newBus.getCodigo(), newBus.getNome()) : null;
 	}
 
 	@Override
 	public Bus getBusByName(String name, List<Bus> busses) {
 
-		return busses.stream().filter(bus -> bus.getNome() == name).findFirst().orElse(null);
+		if (busses.isEmpty())
+			return null;
+
+		Bus newBus = busses.stream().filter(streamBus -> streamBus.getNome().equals(name)).findFirst().orElse(null);
+
+		return newBus != null ? new Bus(newBus.getId(), newBus.getCodigo(), newBus.getNome()) : null;
 	}
 
 	@Override
-	public void updateBus(Bus bus, List<Bus> busses) {
+	public boolean updateBusById(Bus bus, List<Bus> busses) {
 
-		busses.set(
-				busses.indexOf(
-						busses.stream().filter(streamBus -> streamBus.getId() == bus.getId()).findFirst().orElse(null)),
-				bus);
+		if (busses.isEmpty())
+			return false;
+
+		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getId() == bus.getId()).findFirst().orElse(null);
+
+		if (updatedBus != null) {
+			busses.set(busses.indexOf(updatedBus), bus);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public void deleteBusById(int id, List<Bus> busses) {
+	public boolean updateBusByCode(Bus bus, List<Bus> busses) {
 
-		busses.stream().filter(bus -> bus.getId() == id).forEach(bus -> busses.remove(bus));
+		if (busses.isEmpty())
+			return false;
+
+		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getCodigo() == bus.getCodigo()).findFirst()
+				.orElse(null);
+
+		if (updatedBus != null) {
+			busses.set(busses.indexOf(updatedBus), bus);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public void deleteBusByCode(int code, List<Bus> busses) {
+	public boolean updateBusByName(Bus bus, List<Bus> busses) {
 
-		busses.stream().filter(bus -> bus.getCodigo() == code).forEach(bus -> busses.remove(bus));
+		if (busses.isEmpty())
+			return false;
 
+		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getNome() == bus.getNome()).findFirst()
+				.orElse(null);
+
+		if (updatedBus != null) {
+			busses.set(busses.indexOf(updatedBus), bus);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public void deleteBusByName(String name, List<Bus> busses) {
+	public boolean deleteBusById(int id, List<Bus> busses) {
 
-		busses.stream().filter(bus -> bus.getNome() == name).forEach(bus -> busses.remove(bus));
+		if (busses.isEmpty())
+			return false;
+
+		Bus deleteBus = busses.stream().filter(streamBus -> streamBus.getId() == id).findFirst().orElse(null);
+
+		return deleteBus != null ? busses.remove(deleteBus) : false;
+	}
+
+	@Override
+	public boolean deleteBusByCode(String code, List<Bus> busses) {
+
+		if (busses.isEmpty())
+			return false;
+
+		Bus deleteBus = busses.stream().filter(streamBus -> streamBus.getCodigo().equals(code)).findFirst().orElse(null);
+
+		return deleteBus != null ? busses.remove(deleteBus) : false;
+	}
+
+	@Override
+	public boolean deleteBusByName(String name, List<Bus> busses) {
+
+		if (busses.isEmpty())
+			return false;
+
+		Bus deleteBus = busses.stream().filter(streamBus -> streamBus.getNome() == name).findFirst().orElse(null);
+
+		return deleteBus != null ? busses.remove(deleteBus) : false;
 
 	}
 }

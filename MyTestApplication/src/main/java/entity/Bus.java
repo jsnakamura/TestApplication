@@ -8,6 +8,6 @@ import lombok.Data;
 public class Bus {
 
 	int id;
-	int codigo;
+	String codigo;
 	String nome;
 }
