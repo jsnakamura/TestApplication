@@ -12,10 +12,10 @@ public class Main {
 
 		DataHelper dataHelper = new DataHelper();
 
-		Itinerary itinerary = dataHelper
-				.getItineraryFromJson("http://www.poatransporte.com.br/php/facades/process.php?a=il&p=5529");
+//		Itinerary itinerary = dataHelper
+//				.getItineraryFromJson("http://www.poatransporte.com.br/php/facades/process.php?a=il&p=5529");
 
-		System.out.println(itinerary);
+		//System.out.println(itinerary);
 
 	}
 }
