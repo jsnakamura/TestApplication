@@ -1,12 +1,11 @@
 # Mobility API
 
-API que realiza operações CRUD em um conjunto de dados pegos do datapoa.
+API que realiza operações CRUD in-memory em um conjunto de dados pegos do datapoa.
 
 ## Requisitos do sistema
 
 * JDK 11
 * Lombok 1.18
-
 
 ## Modo de uso:
 
@@ -14,11 +13,7 @@ Executar os testes.
 
 ## Melhorias
 
-
-
-## Dificuldades
-
-
+* Mais testes 
 
 ## Observações
 

@@ -7,30 +7,34 @@ import java.util.List;
 import entities.Bus;
 import entities.Itinerary;
 import entities.Location;
-import helpers.DataHelper;
 import services.BusService;
-import services.BusServiceImp;
 import services.ItineraryService;
-import services.ItineraryServiceImp;
 
 public class MobilityController {
 
-	private DataHelper dataHelper;
+
 	private BusService busService;
 	private ItineraryService itineraryService;
 	private List<Bus> busses;
 	private List<Itinerary> itineraries;
 
-	public MobilityController() throws IOException, InterruptedException, URISyntaxException {
-		dataHelper = new DataHelper();
-		busService = new BusServiceImp();
-		itineraryService = new ItineraryServiceImp();
-		busses = dataHelper.getBussesFromJson("http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%25&t=o");
-		itineraries = dataHelper.getItineraries(busses);
+	public MobilityController(BusService busService, ItineraryService itineraryService, List<Bus> busses, List<Itinerary> itineraries) throws IOException, InterruptedException, URISyntaxException {
+		this.busService = busService;
+		this.itineraryService = itineraryService;
+		this.busses = busses;
+		this.itineraries = itineraries;
 	}
 
 	public List<Bus> filterBussesByName(String name) {
 		return busService.filterByName(name, busses);
+	}
+	
+	public List<Bus> listBusses() {
+		return busses;
+	}
+	
+	public List<Itinerary> listItineraries() {
+		return itineraries;
 	}
 
 	public boolean upsertBusById(int id, String code, String name) {

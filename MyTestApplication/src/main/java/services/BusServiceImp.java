@@ -76,7 +76,7 @@ public class BusServiceImp implements BusService {
 		if (busses.isEmpty())
 			return false;
 
-		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getCodigo() == bus.getCodigo()).findFirst()
+		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getCodigo().equals(bus.getCodigo())).findFirst()
 				.orElse(null);
 
 		if (updatedBus != null) {
@@ -93,7 +93,7 @@ public class BusServiceImp implements BusService {
 		if (busses.isEmpty())
 			return false;
 
-		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getNome() == bus.getNome()).findFirst()
+		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getNome().equals(bus.getNome())).findFirst()
 				.orElse(null);
 
 		if (updatedBus != null) {
