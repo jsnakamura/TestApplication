@@ -1,5 +1,4 @@
-/META-INF/
-/service/
-/view/
-/entity/
-/helper/
+/services/
+/helpers/
+/controllers/
+/views/

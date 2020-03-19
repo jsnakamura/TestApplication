@@ -1,9 +1,9 @@
-package service;
+package services;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import entity.Bus;
+import entities.Bus;
 
 public class BusServiceImp implements BusService {
 
@@ -16,7 +16,9 @@ public class BusServiceImp implements BusService {
 	@Override
 	public boolean createNewBus(int id, String code, String name, List<Bus> busses) {
 
-		return busses.add(new Bus(id, code, name));
+		return busses.stream().filter(streamBus -> streamBus.getId() == id).findFirst().orElse(null) == null
+				? busses.add(new Bus(id, code, name))
+				: false;
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class BusServiceImp implements BusService {
 		Bus updatedBus = busses.stream().filter(streamBus -> streamBus.getId() == bus.getId()).findFirst().orElse(null);
 
 		if (updatedBus != null) {
-			busses.set(busses.indexOf(updatedBus), bus);
+			busses.set(busses.indexOf(updatedBus), new Bus(bus.getId(), bus.getCodigo(), bus.getNome()));
 			return true;
 		} else {
 			return false;
@@ -78,7 +80,7 @@ public class BusServiceImp implements BusService {
 				.orElse(null);
 
 		if (updatedBus != null) {
-			busses.set(busses.indexOf(updatedBus), bus);
+			busses.set(busses.indexOf(updatedBus),  new Bus(bus.getId(), bus.getCodigo(), bus.getNome()));
 			return true;
 		} else {
 			return false;
@@ -95,7 +97,7 @@ public class BusServiceImp implements BusService {
 				.orElse(null);
 
 		if (updatedBus != null) {
-			busses.set(busses.indexOf(updatedBus), bus);
+			busses.set(busses.indexOf(updatedBus),  new Bus(bus.getId(), bus.getCodigo(), bus.getNome()));
 			return true;
 		} else {
 			return false;
@@ -108,9 +110,9 @@ public class BusServiceImp implements BusService {
 		if (busses.isEmpty())
 			return false;
 
-		Bus deleteBus = busses.stream().filter(streamBus -> streamBus.getId() == id).findFirst().orElse(null);
+		Bus deletedBus = busses.stream().filter(streamBus -> streamBus.getId() == id).findFirst().orElse(null);
 
-		return deleteBus != null ? busses.remove(deleteBus) : false;
+		return deletedBus != null ? busses.remove(deletedBus) : false;
 	}
 
 	@Override
@@ -119,9 +121,10 @@ public class BusServiceImp implements BusService {
 		if (busses.isEmpty())
 			return false;
 
-		Bus deleteBus = busses.stream().filter(streamBus -> streamBus.getCodigo().equals(code)).findFirst().orElse(null);
+		Bus deletedBus = busses.stream().filter(streamBus -> streamBus.getCodigo().equals(code)).findFirst()
+				.orElse(null);
 
-		return deleteBus != null ? busses.remove(deleteBus) : false;
+		return deletedBus != null ? busses.remove(deletedBus) : false;
 	}
 
 	@Override
@@ -130,9 +133,9 @@ public class BusServiceImp implements BusService {
 		if (busses.isEmpty())
 			return false;
 
-		Bus deleteBus = busses.stream().filter(streamBus -> streamBus.getNome() == name).findFirst().orElse(null);
+		Bus deletedBus = busses.stream().filter(streamBus -> streamBus.getNome() == name).findFirst().orElse(null);
 
-		return deleteBus != null ? busses.remove(deleteBus) : false;
+		return deletedBus != null ? busses.remove(deletedBus) : false;
 
 	}
 }

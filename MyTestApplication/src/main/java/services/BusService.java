@@ -1,8 +1,8 @@
-package service;
+package services;
 
 import java.util.List;
 
-import entity.Bus;
+import entities.Bus;
 
 public interface BusService {
 
@@ -17,9 +17,9 @@ public interface BusService {
 	public Bus getBusByName(String name, List<Bus> busses);
 
 	public boolean updateBusById(Bus bus, List<Bus> busses);
-	
+
 	public boolean updateBusByCode(Bus bus, List<Bus> busses);
-	
+
 	public boolean updateBusByName(Bus bus, List<Bus> busses);
 
 	public boolean deleteBusById(int id, List<Bus> busses);

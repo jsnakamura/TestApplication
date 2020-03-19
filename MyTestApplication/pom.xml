@@ -74,6 +74,14 @@
 			<version>3.1.1</version>
 		</dependency>
 
+		<!-- lucene-spatial -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-spatial</artifactId>
+			<version>8.4.1</version>
+		</dependency>
+
+
 
 	</dependencies>
 
